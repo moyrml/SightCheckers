@@ -12,15 +12,19 @@ class Board:
         self.board = [[[] for _ in range(self.size)] for _ in range(self.size)]
 
         # initialize white pieces
-        for x in range(0, self.size, 2):
-            for y in range(0, self.size // 2 - 1):
-                location = self.get_location(y, x + y % 2 + 1)
-                self.board[location[0]][location[1]] = Piece(0, (x,y))
+        locations = []
+        for y in range(0, self.size // 2 - 1):
+            for x in range(1 - y % 2, self.size + 1 - y % 2, 2):
+                location = self.get_location(x, y)
+                locations.append(location)
+                self.board[location[1]][location[0]] = Piece(0, (x, y))
 
-        for x in range(0, self.size, 2):
-            for y in range(self.size // 2 + 1, self.size):
-                location = self.get_location(y, x + y % 2 + 1)
-                self.board[location[0]][location[1]] = Piece(1, (x,y))
+        # Now we do a trick. Since the board is reversible (it look the same from both players perspectives aside for
+        # the color, and the coordinates are perfectly reversible w.r.t to the board size, we can inverse the locations
+        # instead of re-calculating them
+        for location in locations:
+            inv_location = self.get_location(location[0], location[1])
+            self.board[inv_location[1]][inv_location[0]] = Piece(1, (location[0], location[1]))
 
     def get_location(self, x, y):
         """
@@ -41,9 +45,9 @@ class Board:
         :param key: Tuple of two items in the instructions coord system
         :return:
         """
-        x, y = key
-        rel_x, rel_y = self.get_location(x, y)
-        return self.board[rel_x][rel_y]
+        y, x = key
+        rel_y, rel_x = self.get_location(x, y)
+        return self.board[rel_y][rel_x]
 
     def __repr__(self):
         out_str = ''
