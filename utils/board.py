@@ -35,6 +35,16 @@ class Board:
 
         return rel_x, rel_y
 
+    def __getitem__(self, key):
+        """
+
+        :param key: Tuple of two items in the instructions coord system
+        :return:
+        """
+        x, y = key
+        rel_x, rel_y = self.get_location(x, y)
+        return self.board[rel_x][rel_y]
+
     def __repr__(self):
         out_str = ''
         for row in self.board:
