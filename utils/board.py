@@ -15,12 +15,12 @@ class Board:
         for x in range(0, self.size, 2):
             for y in range(0, self.size // 2 - 1):
                 location = self.get_location(y, x + y % 2 + 1)
-                self.board[location[0]][location[1]] = Piece(0, location)
+                self.board[location[0]][location[1]] = Piece(0, (x,y))
 
         for x in range(0, self.size, 2):
             for y in range(self.size // 2 + 1, self.size):
                 location = self.get_location(y, x + y % 2 + 1)
-                self.board[location[0]][location[1]] = Piece(1, location)
+                self.board[location[0]][location[1]] = Piece(1, (x,y))
 
     def get_location(self, x, y):
         """
