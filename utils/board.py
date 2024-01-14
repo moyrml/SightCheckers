@@ -28,7 +28,8 @@ class Board:
 
     def get_location(self, x, y):
         """
-        Translate between instructions indexing and pythons indexing.
+        Translate between instructions indexing to pythons indexing. Since the board is symmetric, this function
+        is reversible.
         :param x: horizontal location relative to bottom right
         :param y: vertical location relative to bottom right
         :return: tuple. index in nested list structure.
