@@ -13,9 +13,7 @@ class Game:
 
     def make_move(self, move):
         capture_options = self.check_legality(move)
-
-        self.board[move[2], move[3]] = self.board[move[0], move[1]]
-        del self.board[move[0], move[1]]
+        self.board.move(move[:2], move[2:])
 
         if capture_options:
             captured_piece = capture_options[(move[2], move[3])]
