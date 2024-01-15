@@ -58,7 +58,13 @@ class Board:
     def __delitem__(self, key):
         y, x = key
         rel_y, rel_x = self.get_location(x, y)
-        del self.board[rel_y][rel_x]
+        self.board[rel_y][rel_x] = []
+
+    def move(self, from_loc, to_loc):
+        self[to_loc] = self[from_loc]
+        del self[from_loc]
+
+        self[to_loc].location = tuple(to_loc)
 
     def __repr__(self):
         out_str = ''
