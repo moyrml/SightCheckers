@@ -68,15 +68,21 @@ class Board:
 
     def __repr__(self):
         out_str = ''
-        for row in self.board:
-            for col_item in row:
+        for x, row in enumerate(self.board):
+            for y, col_item in enumerate(row):
                 to_append = ''
                 if not col_item:
                     to_append = '-\t'
                 else:
                     to_append = f'{col_item.__repr__()}\t'
+
                 out_str += to_append
+                if y == self.size - 1:
+                    r = self.get_location(x, 0)
+                    out_str += f'{r[0]}'
             out_str += '\n'
+        out_str += '\t'.join([str(self.get_location(0, i)[1]) for i in range(self.size)])
+        out_str += '\n'
         return out_str
 
 
