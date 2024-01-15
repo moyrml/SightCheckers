@@ -38,7 +38,4 @@ if __name__ == '__main__':
         if verbose:
             report_progression(game, line_no+1, move)
 
-        if line_no > 2:
-            break
-
     print('Done')
