@@ -21,23 +21,24 @@ class Piece:
         Checks if a piece can capture another piece, and return the capture end positions
 
         :param board: Pointer to the board
-        :return: tuple. Positions at the end of the capture if can capture, [(-1, -1)] otherwise
+        :return: dict. Dictionary with end positions as keys and captured positions as values
         """
-        # positions = set()
         captured_positions = dict()
 
         neighbors_1st_order_coords, neighbors_1st_order = self.get_forward_neighbors(board)
         for i, n1 in enumerate(neighbors_1st_order):
-            if not n1:
+            if not n1 or n1.color == self.color:
                 # First neighboring position is empty
                 continue
 
-            neighbors_2st_order_coords, neighbors_2st_order = n1.get_forward_neighbors(board)
+            neighbors_2st_order_coords, neighbors_2st_order = n1.get_forward_neighbors(board, color_mod=self.color)
             for j, n2 in enumerate(neighbors_2st_order):
                 if not n2:
                     # Second neighboring position is empty
-                    # positions.add(neighbors_2st_order_coords[j])
-                    captured_positions[neighbors_2st_order_coords[j]] = n1.location
+                    if neighbors_2st_order_coords[j][0] - self.location[0] not in [-2, 2]:
+                        # direction consistancy
+                        continue
+                    captured_positions[tuple(neighbors_2st_order_coords[j])] = n1.location
 
         return captured_positions
 
