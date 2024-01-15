@@ -36,8 +36,8 @@ class Game:
             self.n_moves == 0 and moving_piece.color != 0,  # starting piece is not white
             x1 >= self.board.size or y1 >= self.board.size,  # a move to outside the board
             len(can_capture) > 0 and (x1, y1) not in can_capture,  # can capture but next move s not a capture
-            (x1, y1) not in can_capture and x0 - x1 not in [-1, 1],  # The move is not in a diagonal with 1 jump and not a capture
-            (x1, y1) not in can_capture and y1 - y0 != 1 - 2 * moving_piece.color  # The move is not "forward"
+            not can_capture and x0 - x1 not in [-1, 1],  # The move is not in a diagonal with 1 jump and not a capture
+            not can_capture and y1 - y0 != 1 - 2 * moving_piece.color  # The move is not "forward"
         ]
 
         if any(rules_broken):
