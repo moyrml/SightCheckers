@@ -41,10 +41,20 @@ class Piece:
 
         return captured_positions
 
-    def get_forward_neighbors(self, board):
+    def get_forward_neighbors(self, board, color_mod=None):
+        """
+
+        :param board:
+        :param color_mod: int. One of board.colors. Used to determine second order neighbors.
+        :return:
+        """
+        color = self.color
+        if color_mod is not None:
+            color = color_mod
+
         neighbors_coords = [
-            [self.location[0] + 1, self.location[1] + 1 - 2 * self.color],  # if color=1 (black) we look DOWN the board
-            [self.location[0] - 1, self.location[1] + 1 - 2 * self.color]
+            [self.location[0] + 1, self.location[1] + 1 - 2 * color],  # if color=1 (black) we look DOWN the board
+            [self.location[0] - 1, self.location[1] + 1 - 2 * color]
         ]
         neighbors = [board[c] for c in neighbors_coords if 0<=c[0]<board.size and 0<=c[1]<board.size]
         return neighbors_coords, neighbors
