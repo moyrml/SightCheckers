@@ -50,6 +50,16 @@ class Board:
         rel_y, rel_x = self.get_location(x, y)
         return self.board[rel_y][rel_x]
 
+    def __setitem__(self, key, value):
+        y, x = key
+        rel_y, rel_x = self.get_location(x, y)
+        self.board[rel_y][rel_x] = value
+
+    def __delitem__(self, key):
+        y, x = key
+        rel_y, rel_x = self.get_location(x, y)
+        del self.board[rel_y][rel_x]
+
     def __repr__(self):
         out_str = ''
         for row in self.board:
