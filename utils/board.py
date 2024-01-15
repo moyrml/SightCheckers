@@ -1,4 +1,4 @@
-from piece import Piece
+from utils.piece import Piece
 
 
 class Board:
