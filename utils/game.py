@@ -19,6 +19,8 @@ class Game:
             captured_piece = capture_options[(move[2], move[3])]
             del self.board[captured_piece]
 
+        self.n_moves += 1
+
     def check_legality(self, move):
         """
         Check weather a move is legal or not. If not - raise exception, otherwise return the capture options
