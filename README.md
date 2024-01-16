@@ -1,6 +1,6 @@
 # Checker Game
 ## Overview
-This repository contains the code for a complete checkers game. It requires input files in the format: \
+This repository contains the code for a complete checkers game. It requires input files in the format: 
 ```commandline
 x0,y0,x1,y1
 x0,y0,x1,y1
