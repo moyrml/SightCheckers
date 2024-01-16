@@ -85,6 +85,17 @@ class Board:
         out_str += '\n'
         return out_str
 
+    def gt_all_pieces(self):
+        out = [[], []]
+
+        for row in self.board:
+            for item in row:
+                if not item:
+                    continue
+                out[item.color].append(item)
+
+        return out
+
 
 if __name__ == '__main__':
     board = Board()
