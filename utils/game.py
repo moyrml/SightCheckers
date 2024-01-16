@@ -32,6 +32,10 @@ class Game:
         moving_piece = self.board[x0, y0]
         can_capture = moving_piece.can_capture(self.board)
 
+        if not moving_piece:
+            # The source cell contains no piece
+            raise IllegalMoveException(move)
+
         rules_broken = [
             self.n_moves == 0 and moving_piece.color != 0,  # starting piece is not white
             x1 >= self.board.size or y1 >= self.board.size,  # a move to outside the board
