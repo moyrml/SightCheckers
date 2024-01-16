@@ -20,6 +20,7 @@ if __name__ == '__main__':
     if '-v' in sys.argv or '--verbose' in sys.argv:
         verbose = True
         reset_progression()
+        print(f'Verbose mode - will create a file game_progression.txt with game moves')
 
     moves_file = Path(sys.argv[-1])
     assert moves_file.exists(), f"Cannot find moves file at {moves_file}"
