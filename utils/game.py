@@ -42,7 +42,7 @@ class Game:
         ]
 
         if any(rules_broken):
-            raise IllegalMoveException(f'illegal move {move}')
+            raise IllegalMoveException(move)
 
         return can_capture
 
