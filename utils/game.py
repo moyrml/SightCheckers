@@ -46,7 +46,33 @@ class Game:
 
         return can_capture
 
+    def conclude(self, outcomes=('first', 'second', 'incomplete', 'tie')):
+        """
+        Count how many pieces each player has. If there are pieces left for both players, check if there are legal
+        moves. If there are - raise incomplete error, otherwise return the player with the most pieces.
 
+        :return:
+        """
+        pieces = self.board.gt_all_pieces()
+        if [] in pieces:
+            return outcomes[[i for i in range(len(pieces)) if len(pieces[i]) > 0][0]]
+
+        for c in pieces:
+            for p in c:
+                forward_positions = p.get_forward_location(self.board.size)
+                for forward_position in forward_positions:
+                    try:
+                        self.check_legality((*p.location, *forward_position))
+                    except IllegalMoveException as e:
+                        continue
+
+                    return outcomes[2]
+
+        n_pieces = [len(s) for s in pieces]
+        if n_pieces[0] == n_pieces[1]:
+            return outcomes[3]
+
+        return outcomes[n_pieces.index(max(n_pieces))]
 
 
 if __name__ == '__main__':
