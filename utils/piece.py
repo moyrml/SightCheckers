@@ -49,16 +49,25 @@ class Piece:
         :param color_mod: int. One of board.colors. Used to determine second order neighbors.
         :return:
         """
+        forward_locations = self.get_forward_location(board.size, color_mod)
+        neighbors = [board[c] for c in forward_locations]
+
+        return forward_locations, neighbors
+
+    def get_forward_location(self, board_size, color_mod=None):
+        """
+        Helper function to get the legal forward locations
+        :return: list of tuples
+        """
         color = self.color
         if color_mod is not None:
             color = color_mod
 
-        neighbors_coords = [
-            [self.location[0] + 1, self.location[1] + 1 - 2 * color],  # if color=1 (black) we look DOWN the board
-            [self.location[0] - 1, self.location[1] + 1 - 2 * color]
-        ]
-        neighbors = [board[c] for c in neighbors_coords if 0<=c[0]<board.size and 0<=c[1]<board.size]
-        return neighbors_coords, neighbors
+        xs = self.location[0] + 1, self.location[0] - 1
+        ys = self.location[1] + 1 - 2 * color,
+
+        out = [(x, y) for x in xs for y in ys if 0<=x<board_size and 0<=y<board_size]
+        return out
 
     def __nonzero__(self):
         """
