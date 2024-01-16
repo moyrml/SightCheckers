@@ -2,6 +2,7 @@ from utils.game import Game
 import sys
 from pathlib import Path
 from utils.report_progression import report_progression, reset_progression
+from utils.errors import IllegalMoveException
 
 if __name__ == '__main__':
     if len(sys.argv) == 1 or '-h' in sys.argv or '--help' in sys.argv:
@@ -33,7 +34,12 @@ if __name__ == '__main__':
 
     for line_no, move in enumerate(moves):
         move = [int(i) for i in move.split(',')]
-        game.make_move(move)
+
+        try:
+            game.make_move(move)
+        except IllegalMoveException as e:
+            print(f'Illegal move - line {line_no+1} illegal move: {tuple(e.message)}')
+            sys.exit(1)
 
         if verbose:
             report_progression(game, line_no+1, move)
