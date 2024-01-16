@@ -67,7 +67,7 @@ class Game:
                 for forward_position in forward_positions:
                     try:
                         self.check_legality((*p.location, *forward_position))
-                    except IllegalMoveException as e:
+                    except IllegalMoveException:
                         continue
 
                     return outcomes[2]
@@ -82,4 +82,4 @@ class Game:
 if __name__ == '__main__':
     game = Game()
     game.start()
-    game.make_move((1,2,2,3))
+    game.make_move((1, 2, 2, 3))
